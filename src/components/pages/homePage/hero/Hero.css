@@ -1,0 +1,63 @@
+/* Main container for the Hero section */
+.hero-container {
+   width: 100%;
+   overflow: hidden;
+   aspect-ratio: 3.73 / 1;
+   padding-top: 10px;
+
+   /* height: calc(100dvh - 132px);  */
+   /* height: 500px; */
+}
+
+/* Slick slider slide styling */
+.slide {
+   height: 100%;
+}
+
+/* Images inside the slider */
+.slide-image {
+   width: 100%;
+   /* height: 500px; */
+   aspect-ratio: 3.73 / 1;
+   /* height: calc(100dvh - 132px); */
+   object-fit: cover;
+}
+
+/* Custom dots styling */
+.custom-dots {
+   display: flex !important;
+   justify-content: center;
+   gap: 10px; /* Space between dots */
+   bottom: 20px !important;
+}
+
+.custom-dot {
+   width: 20px;
+   height: 4px;
+   background-color: #b3b1b0;
+   border-radius: 2px;
+   transition: all 0.3s ease;
+}
+
+.custom-dots .slick-active .custom-dot {
+   background-color: black;
+   transform: scaleX(2); /* Double size for the active dot */
+}
+
+/* Responsive design for screens smaller than 720px */
+@media (max-width: 768px) {
+   .hero-container {
+      padding-top: 6px;
+   }
+
+   /* .slide-image {
+      aspect-ratio: 1.98 / 1;
+   } */
+   /* Custom dots styling */
+   .custom-dots {
+      display: flex !important;
+      justify-content: center;
+      gap: 10px; /* Space between dots */
+      bottom: 50px !important;
+   }
+}

@@ -1,0 +1,53 @@
+/* Parent container ensures hover animations apply to children */
+.product-card {
+   position: relative;
+   overflow: hidden;
+}
+
+/* Base styles for images */
+.product-image {
+   display: block;
+   height: 100%;
+   width: 100%;
+   object-fit: cover;
+   object-position: center;
+   transition: transform 0.6s ease, opacity 0.6s ease;
+   border-radius: 8px;
+}
+
+/* Image 1 (default) */
+.product-image1 {
+   z-index: 1;
+}
+
+/* Image 2 (hover) */
+.product-image2 {
+   position: absolute;
+   top: 0;
+   left: 0;
+   opacity: 0;
+   transform: scale(1); /* Slight zoom-out initially */
+   z-index: 2;
+}
+
+/* Hover effect */
+.product-card:hover .product-image1 {
+   opacity: 0;
+   transform: scale(1.1); /* Slight zoom-in on hover */
+}
+
+.product-card:hover .product-image2 {
+   opacity: 1;
+   transform: scale(1.1); /* Bring it back to normal size */
+}
+
+.star-icon {
+   font-size: 24px; /* Default size for larger screens */
+}
+
+/* Media query for smaller screens */
+@media (max-width: 600px) {
+   .star-icon {
+      font-size: 16px; /* Smaller size on small screens */
+   }
+}

@@ -1,0 +1,492 @@
+header {
+   width: 100%;
+   /* height: 90px; */
+   /* background-color: var(--main); */
+}
+
+header .navbarBackground {
+   /* max-width: 1240px; */
+   /* height: 100%; */
+   /* padding: 0rem 6rem; */
+   margin: auto;
+   overflow: hidden;
+   display: flex;
+   z-index: 100;
+   padding: 1.5rem 6rem !important;
+   background-color: #fff;
+   transition: 0.4s ease-in-out;
+   justify-content: space-between;
+   box-shadow: 0 0.8125rem 2.1875rem -0.75rem rgba(35, 35, 35, 0.15);
+}
+header .navbar {
+   /* max-width: 1240px; */
+   /* height: 100%; */
+   /* padding: 0rem 6rem; */
+   width: 100%;
+   margin: auto;
+   overflow: hidden;
+   display: flex;
+   z-index: 100;
+   padding: 1.5rem 6rem !important;
+   background-color: #fff;
+   transition: 0.4s ease-in-out;
+   justify-content: space-between;
+}
+
+header .logo {
+   width: 100px;
+   height: 40px;
+   display: flex;
+   align-items: center;
+   cursor: pointer;
+   /* color: var(--secondary); */
+}
+header .logo img {
+   width: 100%;
+   height: 100%;
+}
+
+.hamburger {
+   display: none;
+   position: absolute;
+   top: 2rem;
+   right: 1rem;
+}
+
+.nav-menu {
+   display: flex;
+   align-items: center;
+   justify-content: start;
+   position: relative;
+}
+
+.nav-item {
+   padding: 0 1.2rem;
+   list-style: none;
+}
+
+.nav-link-background {
+   color: #020c1c;
+   font-weight: 500;
+   cursor: pointer;
+   font-size: 15px;
+   /* font-family: "Poppins", sans-serif !important; */
+}
+
+.nav-link {
+   color: #020c1c;
+   font-weight: 500;
+   font-size: 15px;
+   cursor: pointer;
+}
+
+.navbarLink {
+   text-decoration: none;
+}
+
+.activeLink {
+   color: #fff;
+   font-weight: 500;
+   font-size: 15px;
+   cursor: pointer;
+}
+
+.activeBar {
+   width: 15px;
+   margin-left: 2px;
+   height: 3px;
+   background-color: #508bc7;
+   border-radius: 50px;
+}
+
+.inactiveBar {
+   width: 15px;
+   margin-left: 2px;
+   height: 3px;
+   background-color: transparent;
+   border-radius: 50px;
+}
+
+.hero-area-btn-login {
+   background-color: #fdd602;
+   color: #3a3a3a;
+   width: 100%;
+   padding: 7px 16px !important;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   cursor: pointer;
+   border-radius: 50px;
+   text-transform: uppercase;
+   font-size: 11px;
+   font-weight: 500;
+   transition: 0.2s ease-in-out;
+}
+
+.hero-area-btn-login:hover {
+   background-color: #808080;
+   color: #fff;
+}
+
+.hero-area-btn-signup {
+   background-color: transparent;
+   color: #508bc7;
+   width: 100%;
+   padding: 7px 16px !important;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   cursor: pointer;
+   border-radius: 4px;
+   font-size: 16px;
+   transition: 0.2s ease-in-out;
+   border: 1px solid #508bc7;
+}
+
+.hero-area-btn-signup:hover {
+   background-color: #f5f9fd;
+   border: 1px solid #508bc7;
+   color: #508bc7;
+}
+
+.no-scroll {
+   overflow: hidden;
+}
+
+.loginForm {
+   padding: 32px 34px;
+   width: 100%;
+   display: flex;
+   justify-content: center;
+   flex-direction: column;
+   align-items: center;
+}
+
+.loginLogoBox {
+   width: 100px;
+   height: auto;
+   margin-bottom: 18px;
+}
+.loginLogo {
+   width: 100%;
+   height: 100%;
+}
+
+.loginTitle {
+   font-size: 18px;
+   font-weight: 600;
+   color: #121127;
+   margin-bottom: 22px;
+}
+.loginSubTitle {
+   font-size: 16px;
+   font-weight: 400;
+   color: #383751;
+   margin-bottom: 14px;
+}
+/* card */
+
+.loginSelectBox {
+   display: flex;
+   width: 100%;
+   gap: 10px;
+}
+.signupSelectBox {
+   display: flex;
+   width: 70%;
+   gap: 10px;
+}
+
+.userCard {
+   background-color: #fff;
+   border-radius: 4px;
+   border: 2px solid #e5e5eb;
+   width: 100%;
+   display: flex;
+   justify-content: center;
+   gap: 10px;
+   align-items: center;
+   padding: 20px 34px;
+   cursor: pointer;
+}
+.userCardActive {
+   background-color: #fff;
+   border-radius: 4px;
+   border: 2px solid #508bc7;
+   width: 100%;
+   display: flex;
+   justify-content: center;
+   gap: 10px;
+   align-items: center;
+   padding: 20px 34px;
+   cursor: pointer;
+}
+.loginUserTitle {
+   font-size: 13px;
+   font-weight: 500;
+   color: #201f37;
+   margin-top: 12px;
+   text-align: center;
+}
+
+.loginUserImgBox {
+   width: 55px;
+   height: auto;
+}
+.loginUserImg {
+   width: 100%;
+   height: 100%;
+}
+
+.logoNavBox {
+   width: 180px;
+   height: 100%;
+}
+.logoNav {
+   width: 100%;
+   height: 100%;
+}
+
+.signupBtn {
+   color: #fff !important;
+   background-color: #4285f4 !important;
+   border-radius: 4px !important;
+   padding: 6px 0px !important;
+   width: 70% !important;
+   margin-top: 40px !important;
+   text-transform: capitalize !important;
+}
+.signupBtnDisabled {
+   color: #8d8d8d !important;
+   background-color: #d0d0d0 !important;
+   border-radius: 4px !important;
+   padding: 6px 0px !important;
+   width: 70% !important;
+   margin-top: 40px !important;
+   text-transform: capitalize !important;
+}
+
+@media screen and (max-width: 300px) {
+   header .navbar {
+      padding: 1.5rem 1rem !important;
+   }
+   header .navbarBackground {
+      padding: 1.5rem 1rem !important;
+   }
+}
+
+@media screen and (max-width: 899px) {
+   .hero-area-btn-signup {
+      background-color: transparent;
+      color: #508bc7;
+      width: 100%;
+      padding: 12px 16px !important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border-radius: 4px;
+      font-size: 12px;
+      transition: 0.2s ease-in-out;
+      border: 1px solid #508bc7;
+   }
+   .hero-area-btn-login {
+      background-color: #fdd602;
+      color: #3a3a3a;
+      width: 100%;
+      padding: 7px 16px !important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border-radius: 50px;
+      text-transform: uppercase;
+      font-size: 11px;
+      font-weight: 500;
+      transition: 0.2s ease-in-out;
+      margin-top: 40px;
+   }
+}
+
+@media screen and (max-width: 1250px) {
+   header .navbar {
+      padding: 1.5rem 2rem !important;
+   }
+   header .navbarBackground {
+      padding: 1.5rem 2rem !important;
+   }
+   .hamburger {
+      position: absolute;
+      display: block;
+      font-size: 3rem;
+      cursor: pointer;
+      top: 8px;
+      right: 2rem;
+      z-index: 10000;
+   }
+
+   .nav-menu {
+      position: fixed;
+      right: -100px;
+      flex-direction: column;
+      justify-content: center;
+      background-color: #fff !important;
+      width: 100%;
+      display: flex;
+      justify-content: start;
+      height: 100%;
+      /* height: auto; */
+      text-align: center;
+      transition: 0.5s ease-in-out; /* Add transition effect */
+      top: 0px;
+      z-index: 10000;
+      box-shadow: rgba(0, 0, 0, 0.2) 0px 18px 50px -10px;
+   }
+
+   .nav-menu.active {
+      right: 0px;
+      transition: 0.5s ease-in-out; /* Add transition effect */
+      background-color: #fff;
+      width: 325px;
+   }
+
+   .nav-item {
+      margin: 0.3rem 0;
+      font-size: 1.8rem;
+      width: 100%;
+      border-bottom: 1px solid #e7e8e8;
+      padding-bottom: 10px;
+   }
+   .nav-item:nth-last-child(2) {
+      /* border-bottom: none; */
+      /* margin-top: 30px; */
+   }
+   .nav-link {
+      font-size: 22px;
+      display: flex;
+      margin: 3px 0px;
+      align-items: center;
+      justify-content: space-between;
+   }
+   .list-items {
+      /* height: calc(100%); */
+      overflow-y: auto;
+      width: 100%;
+   }
+   .logoNavMob {
+      width: 120px !important;
+      height: 100% !important;
+   }
+   .logoNavImg {
+      width: 100% !important;
+      height: 100% !important;
+   }
+}
+
+@media screen and (max-width: 795px) {
+   .loginForm {
+      padding: 26px 28px;
+   }
+   /* card */
+
+   .loginSelectBox {
+      display: flex;
+      width: 100%;
+      gap: 6px;
+   }
+
+   .userCard {
+      background-color: #fff;
+      border-radius: 4px;
+      border: 2px solid #e5e5eb;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      align-items: center;
+      padding: 10px 22px;
+      cursor: pointer;
+   }
+   .userCardActive {
+      background-color: #fff;
+      border-radius: 4px;
+      border: 2px solid #508bc7;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      align-items: center;
+      padding: 10px 22px;
+      cursor: pointer;
+   }
+   .loginUserTitle {
+      font-size: 10px;
+      font-weight: 500;
+      color: #201f37;
+      text-align: center;
+   }
+
+   .loginUserImgBox {
+      width: 35px;
+      height: auto;
+   }
+   .loginUserImg {
+      width: 100%;
+      height: 100%;
+   }
+}
+@media screen and (max-width: 621px) {
+   .loginForm {
+      padding: 20px 10px;
+   }
+   /* card */
+
+   .loginSelectBox {
+      display: flex;
+      width: 100%;
+      gap: 6px;
+   }
+   .signupSelectBox {
+      width: 100%;
+   }
+
+   .userCard {
+      background-color: #fff;
+      border-radius: 4px;
+      border: 2px solid #e5e5eb;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      align-items: center;
+      padding: 8px 12px;
+      cursor: pointer;
+   }
+   .userCardActive {
+      background-color: #fff;
+      border-radius: 4px;
+      border: 2px solid #508bc7;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      align-items: center;
+      padding: 8px 12px;
+      cursor: pointer;
+   }
+   .loginUserTitle {
+      font-size: 10px;
+      font-weight: 500;
+      color: #201f37;
+      text-align: center;
+   }
+
+   .loginUserImgBox {
+      width: 35px;
+      height: auto;
+   }
+   .loginUserImg {
+      width: 100%;
+      height: 100%;
+   }
+}

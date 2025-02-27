@@ -1,0 +1,265 @@
+.grid2Login {
+   background: url("../../../../../src/assets/loginBg.jpg");
+   height: 100%;
+   width: 100%;
+   display: flex;
+   align-items: center;
+   position: relative;
+   background-position: center center;
+   background-size: cover;
+   overflow: hidden;
+   padding: 0px 100px;
+}
+
+.grid2Login::before {
+   content: "";
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: inherit;
+   background: rgba(0, 0, 0, 0.088);
+   z-index: 1;
+}
+@media (max-width: 1280px) {
+   /* .grid2Login {
+      height: 100dvh;
+   } */
+}
+.grid2AbsImg {
+   width: 140px;
+   height: auto;
+   position: absolute;
+   right: 20px;
+   bottom: 20px;
+}
+.grid2AbsImg2 {
+   width: 100px;
+   height: auto;
+   position: absolute;
+   left: 50px;
+   top: 20px;
+}
+.grid2LoginWrap {
+   display: flex;
+   /* justify-content: center; */
+   flex-direction: column;
+   /* align-items: center; */
+   width: 100%;
+   /* margin-top: -590px; */
+}
+
+.infoCard {
+   display: flex;
+   justify-content: space-between;
+   width: 400px;
+   align-items: center;
+   padding: 15px 0px;
+   border-bottom: 1px solid rgba(249, 249, 249, 0.14);
+   cursor: pointer;
+}
+/* .grid2LoginWrapImg {
+   width: 250px;
+   height: 100%;
+} */
+
+.infoCard:last-child {
+   border-bottom: none !important;
+}
+
+.infoCard:hover .arrowIcon {
+   transition: 0.2s ease-in-out;
+   margin-right: -10px;
+}
+
+@media (max-width: 600px) {
+   .infoCard {
+      width: 300px;
+      padding: 25px 0px;
+   }
+}
+@media (max-width: 680px) {
+   .grid2LoginWrapImg {
+      /* width: 200px; */
+      height: 100%;
+   }
+   .form {
+      /* box-shadow: 0px 20px 50px 0px rgba(18, 17, 39, 0.08); */
+      background: #fafdff;
+      padding: 42px 10px !important;
+      /* border-radius: 4px; */
+      width: 100%;
+      height: 100%;
+   }
+}
+@media (max-width: 558px) {
+   .grid2LoginWrapImg {
+      /* width: 200px; */
+      height: 100%;
+   }
+   .bottomCopyright {
+      color: #acacac;
+      font-size: 8px !important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      z-index: 30;
+      /* left: 50% !important;
+      transform: translateX(-50%) !important; */
+      bottom: 12px;
+      /* width: 100%; */
+   }
+   .form {
+      /* box-shadow: 0px 20px 50px 0px rgba(18, 17, 39, 0.08); */
+      background: #fafdff;
+      padding: 32px 10px !important;
+      /* border-radius: 4px; */
+      width: 100%;
+      height: 100%;
+   }
+}
+@media (max-width: 398px) {
+   .grid2LoginWrapImg {
+      /* width: 160px; */
+      height: 100%;
+   }
+}
+
+@media (max-width: 1199px) {
+   .grid2Login {
+      display: none;
+   }
+}
+
+.infoCardG1 {
+   display: flex;
+   align-items: center;
+   gap: 12px;
+}
+
+.arrowIcon {
+   color: rgba(249, 249, 249, 0.64);
+}
+
+.grid2LoginBoxTitle {
+   font-size: 14px;
+   color: rgba(249, 249, 249, 0.94);
+}
+
+.grid2LoginBoxSubtitle {
+   font-size: 12px;
+   font-weight: 300;
+   color: rgba(249, 249, 249, 0.64);
+}
+
+.iconBox {
+   background: rgba(249, 249, 249, 0.24);
+   padding: 8px;
+   border-radius: 8px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.iconBoxImg {
+   color: rgba(249, 249, 249, 0.94);
+}
+
+.mainDiv {
+   display: flex;
+   justify-content: center;
+   height: 100%;
+   align-items: center;
+   flex-direction: column;
+   width: 100% !important;
+   border-radius: 12px 0px 0px 12px;
+
+   /* padding: 80px 40px; */
+   /* height: 100dvh; */
+   background: #fff !important;
+   /* position: relative; */
+}
+
+.bottomCopyright {
+   color: #acacac;
+   font-size: 10px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   position: absolute;
+   z-index: 30;
+   /* left: 50% !important;
+   transform: translateX(-50%) !important; */
+   bottom: 12px;
+   /* width: 100%; */
+}
+
+.formDiv {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   width: 100%;
+   height: 100%;
+}
+
+.form {
+   /* box-shadow: 0px 20px 50px 0px rgba(18, 17, 39, 0.08); */
+   background: #fff;
+   padding: 22px 100px;
+   border-radius: 12px 0px 0px 12px;
+   /* border-radius: 10% 0% 0% 10% / 50% 0% 0% 50%; */
+
+   width: 100%;
+   height: 100%;
+}
+
+.formTitleDiv {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   margin-bottom: 22px;
+}
+
+.formTitle {
+   color: #383838;
+   font-size: 22px;
+   font-weight: 700;
+   text-align: start;
+   width: 100%;
+}
+
+.formSubtitle {
+   color: #7f7e92;
+   font-size: 14px;
+   margin-top: 4px;
+   width: 100%;
+   text-align: start;
+}
+
+.buttonDiv {
+   display: flex;
+   justify-content: center;
+   width: 100%;
+}
+
+@media (max-width: 1199px) {
+   .mainDiv {
+      padding: 0px 20px;
+   }
+
+   .form {
+      padding: 32px 20px;
+   }
+}
+
+@media (max-width: 550px) {
+   .mainDiv {
+      padding: 0px 10px;
+   }
+}
+@media (max-width: 420px) {
+   .mainDiv {
+      padding: 0px 5px;
+   }
+}

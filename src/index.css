@@ -1,0 +1,192 @@
+@import url("https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@100..900&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"); */
+/* @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"); */
+/* @import url("https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&display=swap"); */
+* {
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+}
+
+body {
+   font-family: "Kumbh Sans", serif !important;
+   /* font-family: "Roboto", serif !important; */
+   /* font-family: "Inter", serif !important; */
+   /* font-family: "Public Sans", serif !important; */
+
+   background-color: #f3f4f6;
+   scroll-behavior: smooth;
+}
+
+/* containers */
+
+.containerWrap {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   width: 100%;
+}
+
+.containerBody {
+   max-width: 1320px;
+   padding: 0px 10px;
+   width: 100%;
+}
+.containerBodyHero {
+   max-width: 1320px;
+   padding: 0px 10px;
+   width: 100%;
+}
+.containerBodyWOPadding {
+   max-width: 1320px;
+   width: 100%;
+}
+
+.commonContainerBody {
+   padding: 40px 45px;
+}
+.commonContainerBodySec {
+   padding: 40px 0px;
+}
+.commonContainerFooter {
+   padding: 100px 0px;
+}
+
+/* titles */
+
+.titleOne {
+   font-size: 40px;
+   font-weight: 500;
+   color: #181818;
+}
+.titleTwo {
+   font-size: 30px;
+   font-weight: 500;
+   color: #181818;
+}
+.titleThree {
+   font-size: 24px;
+   font-weight: 500;
+   color: #181818;
+}
+.titleFour {
+   font-size: 20px;
+   font-weight: 500;
+   color: #181818;
+}
+.titleFive {
+   font-size: 16px;
+   font-weight: 500;
+   color: #181818;
+}
+
+/* navbar scroll */
+.scrollbar-hide::-webkit-scrollbar {
+   display: none; /* Hide scrollbar for Chrome, Safari, and Opera */
+}
+
+.scrollbar-hide {
+   -ms-overflow-style: none; /* Hide scrollbar for IE and Edge */
+   scrollbar-width: none; /* Hide scrollbar for Firefox */
+}
+
+.opacity-50 {
+   opacity: 0.5;
+}
+
+.cursor-not-allowed {
+   cursor: not-allowed;
+}
+
+.slick-track {
+   margin-left: 0px !important;
+}
+
+.swiper-slide {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   margin-right: 0px !important;
+}
+
+/* Large screens (desktop, >= 1024px) */
+@media (max-width: 1024px) {
+   .titleOne {
+      font-size: 36px;
+   }
+   .titleTwo {
+      font-size: 28px;
+   }
+   .titleThree {
+      font-size: 22px;
+   }
+   .titleFour {
+      font-size: 18px;
+   }
+   .titleFive {
+      font-size: 14px;
+   }
+   .titleSix {
+      font-size: 16px;
+   }
+   .commonContainerBodySec {
+      padding: 30px 0px;
+   }
+}
+
+/* Medium screens (tablet, 768px to 1023px) */
+@media (max-width: 768px) {
+   .titleOne {
+      font-size: 32px;
+   }
+   .titleTwo {
+      font-size: 26px;
+   }
+   .titleThree {
+      font-size: 20px;
+   }
+   .titleFour {
+      font-size: 16px;
+   }
+   .titleFive {
+      font-size: 12px;
+   }
+   .titleSix {
+      font-size: 14px;
+   }
+   .commonContainerBodySec {
+      padding: 16px 0px;
+   }
+   .containerBodyHero {
+      max-width: 1320px;
+      padding: 0px 6px;
+      width: 100%;
+   }
+}
+
+/* Small screens (mobile, < 768px) */
+/* @media (max-width: 480px) {
+   .titleOne {
+      font-size: 28px;
+   }
+   .titleTwo {
+      font-size: 24px;
+   }
+   .titleThree {
+      font-size: 18px;
+   }
+   .titleFour {
+      font-size: 14px;
+   }
+   .titleFive {
+      font-size: 10px;
+   }
+   .titleSix {
+      font-size: 12px;
+   }
+} */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
