@@ -4,22 +4,44 @@ import { useSelector } from "react-redux";
 import Slider from "react-slick";
 import CommonProductCard from "../../../common/commonProductCard/CommonProductCard";
 import "../featuredOffers/FeaturedOffersList/FeaturedOffersList.css";
+
 const Deals = () => {
    const { products } = useSelector((state) => state?.utils);
    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-
-   // category buttons fake data
-   const data = [
-      { id: 1, name: "All Products" },
-      { id: 2, name: "Smart Phone" },
-      { id: 3, name: "Electronic" },
-      { id: 4, name: "Audio" },
-   ];
+   const [activeIndex, setActiveIndex] = useState("all"); // Default to "All Products"
    const sliderRef = useRef();
 
-   const slicedProducts = products?.data?.slice(0, 5);
+   // Get the first 10 products
+   const slicedProducts = products?.data?.slice(0, 5) || [];
 
-   const slideCount = (slicedProducts && slicedProducts?.length) || 0;
+   // Map categories from products
+   const categoryMap = slicedProducts.reduce((acc, product) => {
+      if (product.category?.id && product.category?.name) {
+         acc.set(product.category.id, product.category.name);
+      }
+      return acc;
+   }, new Map());
+
+   const categoryNames = Array.from(categoryMap, ([id, name]) => ({
+      id,
+      name,
+   }));
+
+   // Add "All Products" as the first category
+   const combinedData = [
+      { id: "all", name: "All Products" },
+      ...categoryNames,
+   ];
+
+   // Filter products based on selected category
+   const filteredProducts =
+      activeIndex === "all"
+         ? slicedProducts
+         : slicedProducts.filter(
+              (product) => product.category?.id === activeIndex
+           );
+
+   const slideCount = filteredProducts.length;
 
    const sliderSettings = {
       speed: 500,
@@ -31,7 +53,6 @@ const Deals = () => {
       swipe: false,
       initialSlide: 0,
       centerMode: false,
-
       responsive: [
          {
             breakpoint: 1200,
@@ -76,43 +97,31 @@ const Deals = () => {
       ],
    };
 
-   // categroy buttons state
-   const [activeIndex, setActiveIndex] = useState(data?.[0]?.id);
-
-   // products fake data
-
    useEffect(() => {
       const handleResize = () => setWindowWidth(window.innerWidth);
       window.addEventListener("resize", handleResize);
       return () => window.removeEventListener("resize", handleResize);
    }, []);
 
-   // Determine if we should use the Slider or Grid based on window width and slide count
    const shouldUseSlider = () => {
       if (windowWidth <= 695) {
-         return slideCount > 2; // Use Slider only if slide count is more than 2
+         return slideCount > 2;
       } else if (windowWidth <= 880) {
-         return slideCount > 2; // Use Slider only if slide count is more than 2
+         return slideCount > 2;
       } else if (windowWidth <= 1050) {
-         return slideCount > 3; // Use Slider only if slide count is more than 3
+         return slideCount > 3;
       } else if (windowWidth <= 1200) {
-         return slideCount > 4; // Use Slider only if slide count is more than 4
+         return slideCount > 4;
       }
-      return true; // Use Slider for larger screens
+      return true;
    };
 
-   // Determine the Grid layout based on window width
    const getGridLayout = () => {
-      if (windowWidth <= 695) {
-         return { xs: 6 }; // 2 items per row
-      } else if (windowWidth <= 880) {
-         return { xs: 6 }; // 2 items per row
-      } else if (windowWidth <= 1050) {
-         return { xs: 6, sm: 4 }; // 2 items on xs, 3 items on sm and above
-      } else if (windowWidth <= 1200) {
-         return { xs: 6, sm: 4, md: 3 }; // 2 items on xs, 3 items on sm, 4 items on md and above
-      }
-      return { xs: 6, sm: 4, md: 3, lg: 2.4 }; // Default layout for larger screens
+      if (windowWidth <= 695) return { xs: 6 };
+      if (windowWidth <= 880) return { xs: 6 };
+      if (windowWidth <= 1050) return { xs: 6, sm: 4 };
+      if (windowWidth <= 1200) return { xs: 6, sm: 4, md: 3 };
+      return { xs: 6, sm: 4, md: 3, lg: 2.4 };
    };
 
    return (
@@ -121,25 +130,22 @@ const Deals = () => {
             <div className="commonContainerBodySec">
                <div className="flex flex-col">
                   <div className="flex flex-col lg:flex-row lg:justify-between items-center mb-[44px]">
-                     <div
-                        className="titleTwo mb-[8px] lg:mb-[0px] whitespace-nowrap
-"
-                     >
+                     <div className="titleTwo mb-[8px] lg:mb-[0px] whitespace-nowrap">
                         Recently Added Products
                      </div>
                      <div className="flex items-center gap-[8px] flex-wrap w-[100%] justify-center lg:justify-end">
-                        {data?.map((item, index) => (
+                        {combinedData?.map((item) => (
                            <button
-                              key={index}
-                              onClick={() => setActiveIndex(item?.id)} // Set the active index on click
+                              key={item.id}
+                              onClick={() => setActiveIndex(item.id)}
                               className={`rounded-[50px] px-[15px] py-[4px] border 
-                            ${
-                               activeIndex === item?.id
-                                  ? "bg-[#FDEBEA] border-[#E43131] text-[#E43131] text-[12px] md:text-[14px]" // Active state
-                                  : "bg-[#fff] text-[#181818] border-[#e9e9e9] text-[12px] md:text-[14px] hover:text-[#E43131] hover:bg-[#FDEBEA] hover:border-[#E43131] transition duration-300 ease-in-out" // Inactive state with hover effect
-                            }`}
+                                 ${
+                                    activeIndex === item.id
+                                       ? "bg-[#FDEBEA] border-[#E43131] text-[#E43131] text-[12px] md:text-[14px]"
+                                       : "bg-[#fff] text-[#181818] border-[#e9e9e9] text-[12px] md:text-[14px] hover:text-[#E43131] hover:bg-[#FDEBEA] hover:border-[#E43131] transition duration-300 ease-in-out"
+                                 }`}
                            >
-                              {item?.name}
+                              {item.name}
                            </button>
                         ))}
                      </div>
@@ -150,20 +156,20 @@ const Deals = () => {
                         {...sliderSettings}
                         className="w-full dealsPage"
                      >
-                        {slicedProducts?.map((item, index) => (
+                        {filteredProducts.map((item) => (
                            <CommonProductCard
                               data={item}
-                              key={index}
+                              key={item.id}
                            />
                         ))}
                      </Slider>
                   ) : (
                      <Grid container spacing={0}>
-                        {slicedProducts?.map((item, index) => (
+                        {filteredProducts.map((item) => (
                            <Grid
                               item
                               {...getGridLayout()}
-                              key={index}
+                              key={item.id}
                            >
                               <CommonProductCard data={item} />
                            </Grid>

@@ -99,7 +99,7 @@ const Footer = () => {
                                  onClick={() => navigate(`/`)}
                               />
                               {/* <div className="text-[32px] font-[600]">
-                              Cartyne
+                              MyClo
                            </div> */}
                               <div className="text-[14px] font-[400] ">
                                  {siteSettings?.data?.address}
@@ -352,7 +352,7 @@ const Footer = () => {
                      </Grid>
                      <Divider sx={{ borderColor: "#a0a0a0" }} />
                      <div className="text-[12px]  font-[400] flex justify-center py-[20px]">
-                        ©2025 Cartyne. All Rights Reserved.
+                        ©2025 MyClo. All Rights Reserved.
                      </div>
                   </div>
                </div>
