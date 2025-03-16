@@ -198,6 +198,24 @@ export const siteApi = mainApi.injectEndpoints({
          }),
          invalidatesTags: (result, error) => (error ? [] : ["User"]),
       }),
+      postUserPasswordUpdate: builder.mutation({
+         query: (data) => ({
+            url: `/api/customer/change-password`,
+            method: "POST",
+            body: data,
+         }),
+         invalidatesTags: (result, error) =>
+            error ? [] : ["UserPassword"],
+      }),
+      postUserNameUpdate: builder.mutation({
+         query: (data) => ({
+            url: `/api/customer/${data?.id}`,
+            method: "POST",
+            body: data,
+         }),
+         invalidatesTags: (result, error) =>
+            error ? [] : ["UserName"],
+      }),
       // ---------------------------------------------
    }),
 });
@@ -225,5 +243,7 @@ export const {
    usePostShippingDetailsStatusUpdateMutation,
    useGetUserSingleQuery,
    usePostProfileImageUpdateMutation,
+   usePostUserPasswordUpdateMutation,
+   usePostUserNameUpdateMutation,
    // -------------------
 } = siteApi;

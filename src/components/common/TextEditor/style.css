@@ -1,0 +1,24 @@
+.text-editor-container {
+   margin: 20px 0;
+}
+
+.text-editor-label {
+   display: block;
+   margin-bottom: 8px;
+   font-weight: bold;
+}
+
+.text-editor {
+   border: 1px solid #ccc;
+   border-radius: 4px;
+}
+
+.text-editor-error {
+   border-color: red;
+}
+
+.text-editor-error-message {
+   color: red;
+   margin-top: 8px;
+   font-size: 12px;
+}

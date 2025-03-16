@@ -39,6 +39,7 @@ export const CustomInputDefault = memo(
       itemOrderInput,
       itemOrderToppings,
       bgRed,
+      helperText,
    }) => {
       const navigate = useNavigate();
       const [show, setShow] = useState(false);
@@ -191,6 +192,7 @@ export const CustomInputDefault = memo(
                            title={title}
                            disabled={disabled}
                            onWheel={(e) => e.target.blur()}
+                           helperText={helperText}
                            InputProps={{
                               inputProps: {
                                  min: !isNegative && (min || 0),

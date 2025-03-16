@@ -98,7 +98,7 @@ const SignupForm = () => {
    useEffect(() => {
       if (successData?.message)
          customToaster({
-            message: successData?.message,
+            message: "Sign Up successful. You can now login",
             type: "Success",
          });
    }, [successData]);
@@ -108,7 +108,11 @@ const SignupForm = () => {
          ...values,
       };
 
-      signup(finalValues);
+      signup(finalValues)
+         .unwrap()
+         .then(() => {
+            navigate(`/login`);
+         });
    };
 
    return (

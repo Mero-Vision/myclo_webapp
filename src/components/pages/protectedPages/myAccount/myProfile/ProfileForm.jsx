@@ -4,14 +4,24 @@ import PropTypes from "prop-types";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
-import { usePostShippingDetailsMutation } from "../../../../../api/siteSlice";
+import {
+   useGetUserSingleQuery,
+   usePostUserNameUpdateMutation,
+} from "../../../../../api/siteSlice";
+import { getSiteDetail } from "../../../../../utils/helpers";
 import { CustomInputDefault } from "../../../../common/CustomInputs/CustomInputDefault";
+import customToaster from "../../../../common/CustomToasters/CustomToaster";
 
 const validationSchema = yup.object().shape({
    name: yup.string().required("name is required"),
 });
 
 const ProfileForm = ({ handleClose, row }) => {
+   const userData = getSiteDetail()?.userData;
+
+   const { refetch } = useGetUserSingleQuery(userData?.id, {
+      skip: !userData?.id,
+   });
    const {
       control,
       formState: { errors },
@@ -28,30 +38,37 @@ const ProfileForm = ({ handleClose, row }) => {
    }, [row, reset]);
 
    const [
-      postShippingDetailsUpdate,
+      postUserNameUpdate,
       {
          // error: shipError,
          isLoading: isShipLoading,
          isSuccess: isShipSuccess,
       },
-   ] = usePostShippingDetailsMutation();
+   ] = usePostUserNameUpdateMutation();
 
    useEffect(() => {
       if (isShipSuccess) {
          reset();
          handleClose();
+         refetch();
       }
-   }, [isShipSuccess, reset, handleClose]);
+   }, [isShipSuccess, reset, handleClose, refetch]);
 
-   const onSubmit = (data) => {
+   const onSubmit = (values) => {
       const payload = {
-         ...data,
+         name: values?.name,
+         id: values?.id,
+         _method: "PUT",
       };
 
-      postShippingDetailsUpdate({
-         data: { ...payload, _method: "PUT" },
-         id: row.id,
-      });
+      postUserNameUpdate(payload)
+         .unwrap()
+         .then(() => {
+            customToaster({
+               type: "success",
+               message: "Detail Updated Successfully!",
+            });
+         });
    };
 
    return (

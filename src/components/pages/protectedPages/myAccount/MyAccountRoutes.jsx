@@ -3,6 +3,7 @@ import DashboardOutlinedIcon from "@mui/icons-material/DashboardOutlined";
 import ExitToAppOutlinedIcon from "@mui/icons-material/ExitToAppOutlined";
 import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined";
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
+import WidgetsOutlinedIcon from "@mui/icons-material/WidgetsOutlined";
 import {
    Box,
    Divider,
@@ -23,6 +24,7 @@ import noImg from "../../../../assets/account/noImg.png";
 import { getSiteDetail } from "../../../../utils/helpers";
 import customToaster from "../../../common/CustomToasters/CustomToaster";
 import styles from "./styles";
+
 const settingsArray = [
    {
       label: "Dashboard",
@@ -41,6 +43,11 @@ const settingsArray = [
       icon: <ShoppingBagOutlinedIcon />,
    },
    {
+      label: "My Products",
+      url: "/my-account/my-products",
+      icon: <WidgetsOutlinedIcon />,
+   },
+   {
       label: "Shipping Details",
       url: "/my-account/shipping-details",
       icon: <LocalShippingOutlinedIcon />,
@@ -50,6 +57,13 @@ const MyAccountRoutes = () => {
    const classes = styles();
    const dispatch = useDispatch();
    const navigate = useNavigate();
+
+   const userData = getSiteDetail()?.userData;
+
+   const { data: userDetailData } = useGetUserSingleQuery(
+      userData?.id,
+      { skip: !userData?.id }
+   );
 
    const handleLogout = () => {
       dispatch(logout());
@@ -71,16 +85,18 @@ const MyAccountRoutes = () => {
          </div> */}
 
          <ImageProfileUpload
+            userId={userData?.id}
+            userDetailData={userDetailData}
             onImageUpload={handleImageUpload}
             noImg={noImg}
          />
          <div className="bg-[#fff] rounded-bl-[12px] rounded-br-[12px]">
             <div className="w-[100%]  mb-[20px] flex justify-center flex-col items-center">
                <div className="text-[24px] font-[500] mb-[4px]">
-                  Hancie Phago
+                  {userDetailData?.data?.name || "-"}
                </div>
-               <div className="text-[18px] font-[400]">
-                  hancie@mail.com
+               <div className="text-[16px] font-[400]">
+                  {userDetailData?.data?.email || "-"}
                </div>
             </div>
             <Divider sx={{ margin: "30px 15px" }} />
@@ -185,14 +201,12 @@ const MyAccountRoutes = () => {
    );
 };
 
-const ImageProfileUpload = ({ onImageUpload, noImg }) => {
-   const userData = getSiteDetail()?.userData;
-
-   const {
-      data: userDetailData,
-      isLoading: isUserDetailDataLoading,
-      isFetching: isUserDetailDataFetching,
-   } = useGetUserSingleQuery(userData?.id, { skip: !userData?.id });
+const ImageProfileUpload = ({
+   userDetailData,
+   onImageUpload,
+   noImg,
+   userId,
+}) => {
    const [image, setImage] = useState(null);
 
    const [
@@ -200,7 +214,6 @@ const ImageProfileUpload = ({ onImageUpload, noImg }) => {
       {
          // error: shipError,
          isLoading: isProfileImageLoading,
-         isSuccess: isProfileImageSuccess,
       },
    ] = usePostProfileImageUpdateMutation();
 
@@ -220,7 +233,7 @@ const ImageProfileUpload = ({ onImageUpload, noImg }) => {
 
             postProfileImageUpdate({
                data: formData,
-               id: userData?.id,
+               id: userId,
             })
                .unwrap()
                .then((response) => {

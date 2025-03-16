@@ -9,6 +9,7 @@ import Dashboard from "../components/pages/protectedPages/myAccount/dashboard/Da
 import MyAccount from "../components/pages/protectedPages/myAccount/MyAccount";
 import MyOrders from "../components/pages/protectedPages/myAccount/myOrders/MyOrders";
 import MyProfile from "../components/pages/protectedPages/myAccount/myProfile/MyProfile";
+import Products from "../components/pages/protectedPages/myAccount/products/Products";
 import ShippingDetail from "../components/pages/protectedPages/myAccount/shippingDetail/ShippingDetail";
 import MainSiteLayout from "../layout/MainSiteLayout";
 import RedirectLayout from "../layout/RedirectLayout";
@@ -141,6 +142,14 @@ const RouteList = () => {
                   element={
                      <Protected>
                         <MyOrders />{" "}
+                     </Protected>
+                  }
+               />
+               <Route
+                  path="my-products"
+                  element={
+                     <Protected>
+                        <Products />{" "}
                      </Protected>
                   }
                />

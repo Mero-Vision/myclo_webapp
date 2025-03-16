@@ -4,11 +4,19 @@ import PropTypes from "prop-types";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
-import { usePostShippingDetailsMutation } from "../../../../../api/siteSlice";
+import { usePostUserPasswordUpdateMutation } from "../../../../../api/siteSlice";
 import { CustomInputDefault } from "../../../../common/CustomInputs/CustomInputDefault";
+import customToaster from "../../../../common/CustomToasters/CustomToaster";
 
 const validationSchema = yup.object().shape({
    password: yup.string().required("name is required"),
+   password_confirmation: yup
+      .string()
+      .oneOf(
+         [yup.ref("password"), null],
+         "Password and Confirm Password must match"
+      )
+      .required("Confirm password is required"),
 });
 
 const PasswordForm = ({ handleClose, row }) => {
@@ -20,13 +28,13 @@ const PasswordForm = ({ handleClose, row }) => {
    } = useForm({ resolver: yupResolver(validationSchema) });
 
    const [
-      postShippingDetailsUpdate,
+      postUserPasswordUpdate,
       {
          // error: shipError,
          isLoading: isShipLoading,
          isSuccess: isShipSuccess,
       },
-   ] = usePostShippingDetailsMutation();
+   ] = usePostUserPasswordUpdateMutation();
 
    useEffect(() => {
       if (isShipSuccess) {
@@ -37,13 +45,19 @@ const PasswordForm = ({ handleClose, row }) => {
 
    const onSubmit = (data) => {
       const payload = {
-         ...data,
+         current_password: data?.current_password,
+         password: data?.password,
+         password_confirmation: data?.password_confirmation,
       };
 
-      postShippingDetailsUpdate({
-         data: { ...payload, _method: "PUT" },
-         id: row.id,
-      });
+      postUserPasswordUpdate(payload)
+         .unwrap()
+         .then(() => {
+            customToaster({
+               type: "success",
+               message: "Password Updated Successfully!",
+            });
+         });
    };
 
    return (
@@ -59,8 +73,19 @@ const PasswordForm = ({ handleClose, row }) => {
                      <CustomInputDefault
                         control={control}
                         errors={errors}
+                        name="current_password"
+                        placeholder={"Enter Current Password"}
+                        title={"Current Password"}
+                        type="password"
+                        required
+                     />
+                  </div>
+                  <div className="py-[8px]">
+                     <CustomInputDefault
+                        control={control}
+                        errors={errors}
                         name="password"
-                        placeholder={"Enter Password"}
+                        placeholder={"Enter New Password"}
                         title={"Password"}
                         type="password"
                         required
@@ -70,7 +95,7 @@ const PasswordForm = ({ handleClose, row }) => {
                      <CustomInputDefault
                         control={control}
                         errors={errors}
-                        name="confirm_password"
+                        name="password_confirmation"
                         placeholder={"Enter Password again"}
                         title={"Confirm Password"}
                         type="password"

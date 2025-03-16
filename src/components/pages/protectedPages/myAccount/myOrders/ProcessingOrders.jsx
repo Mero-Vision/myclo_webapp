@@ -3,36 +3,22 @@ import { Grid } from "@mui/material";
 import PropTypes from "prop-types";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useGetOrdersQuery } from "../../../../../api/siteSlice";
-import {
-   getSiteDetail,
-   returnNepaliNumberWithCommas,
-} from "../../../../../utils/helpers";
-import LazyLoadPage from "../../../../common/lazyLoadPage/LazyLoadPage";
+import { returnNepaliNumberWithCommas } from "../../../../../utils/helpers";
 
-const ProcessingOrders = () => {
-   const userData = getSiteDetail()?.userData;
-
-   const {
-      data: orderDetailData,
-      isLoading: isOrderDetailDataLoading,
-   } = useGetOrdersQuery();
+const ProcessingOrders = ({ data }) => {
+   console.log({ data });
    return (
       <>
-         {isOrderDetailDataLoading ? (
-            <LazyLoadPage />
-         ) : (
-            <div
-               style={{
-                  boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
-               }}
-               className="p-[16px] rounded-[6px] "
-            >
-               {orderDetailData?.data?.map((item, index) => (
-                  <Card item={item} key={index} />
-               ))}
-            </div>
-         )}
+         <div
+            style={{
+               boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
+            }}
+            className="p-[16px] rounded-[6px] "
+         >
+            {data?.map((item, index) => (
+               <Card item={item} key={index} />
+            ))}
+         </div>
       </>
    );
 };
@@ -59,8 +45,8 @@ const Card = ({ item }) => {
                      {item?.order_number}
                   </span>
                </div>
-               <div className="bg-[#3ec2a1] text-[#fff] font-[500] text-[12px] px-[8px] py-[2px] rounded-[4px]">
-                  Collected
+               <div className="bg-[#12c4ff] text-[#fff] font-[500] text-[12px] px-[8px] py-[2px] rounded-[4px]">
+                  Processing
                </div>
             </div>
             <div className=" ">
@@ -170,4 +156,9 @@ ProductCardSingle.propTypes = {
       subtotal: PropTypes.number.isRequired,
    }).isRequired,
 };
+
+ProcessingOrders.propTypes = {
+   data: PropTypes.array.isRequired, // Assuming data is an array
+};
+
 export default ProcessingOrders;
