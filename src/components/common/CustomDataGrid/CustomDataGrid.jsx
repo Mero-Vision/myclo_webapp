@@ -106,8 +106,8 @@ export default function CustomDataGrid({
       <Box
          className={classes.root}
          sx={{
-            height: !rows?.length ? "400px" : "auto !important",
-            // fullHeight
+            height: !rows?.length ? "400px" : "494px !important",
+            // fullHeight: rows?.length
             //    ? "auto !important"
             //    : !rows?.length
             //    ? "400px"
