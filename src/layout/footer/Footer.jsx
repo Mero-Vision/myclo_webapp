@@ -1,4 +1,3 @@
-import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
 import InstagramIcon from "@mui/icons-material/Instagram";
@@ -43,8 +42,8 @@ const Footer = () => {
    };
 
    const infoData = [
-      { url: "/about-us", name: "About Us" },
-      { url: "/contact-us", name: "Contact Us" },
+      // { url: "/about-us", name: "About Us" },
+      // { url: "/contact-us", name: "Contact Us" },
       {
          action: () => {
             handleAccount();
@@ -53,15 +52,15 @@ const Footer = () => {
       },
    ];
    const customerServiceData = [
-      {
-         action: () => {
-            handleShipping();
-         },
-         name: "Shipping",
-      },
+      // {
+      //    action: () => {
+      //       handleShipping();
+      //    },
+      //    name: "Shipping",
+      // },
       { url: "/privacy-policy", name: "Privacy Policy" },
       { url: "/terms-and-conditions", name: "Terms & Conditions" },
-      { url: "/faq", name: "FAQs" },
+      // { url: "/faq", name: "FAQs" },
       {
          action: () => {
             handleCart();
@@ -107,7 +106,7 @@ const Footer = () => {
                               <div className="flex flex-col gap-[8px]">
                                  <div className="flex felx-row items-center gap-[12px] text-[16px] font-[400] ">
                                     <EmailOutlinedIcon />{" "}
-                                    themesflat@gmail.com
+                                    {siteSettings?.data?.email}
                                  </div>
                                  <div className="flex felx-row items-center gap-[12px] text-[16px] font-[400] ">
                                     <LocalPhoneOutlinedIcon />{" "}
@@ -246,7 +245,7 @@ const Footer = () => {
                               </div>
                            </div>
                         </Grid>
-                        <Grid item lg={2} md={6} xs={12}>
+                        <Grid item lg={3.5} md={6} xs={12}>
                            <div className="flex flex-col mt-[12px]">
                               <div className="text-[16px] font-[600] mb-[12px]">
                                  Information
@@ -268,7 +267,7 @@ const Footer = () => {
                               </div>
                            </div>
                         </Grid>
-                        <Grid item lg={2.5} md={6} xs={12}>
+                        <Grid item lg={3.5} md={6} xs={12}>
                            <div className="flex flex-col mt-[12px]">
                               <div className="text-[16px] font-[600] mb-[12px]">
                                  Customer Services
@@ -290,63 +289,6 @@ const Footer = () => {
                                     )
                                  )}
                               </div>
-                           </div>
-                        </Grid>
-                        <Grid item lg={3.5} md={12} xs={12}>
-                           <div className="flex flex-col mt-[12px]">
-                              <div className="text-[16px] font-[600] mb-[12px]">
-                                 Newsletter
-                              </div>
-
-                              <div className=" text-[14px] font-[400] mb-[12px]">
-                                 Sign up for our newsletter and get
-                                 10% off your first purchase
-                              </div>
-                              <form className="flex items-center">
-                                 <div
-                                    style={{
-                                       position: "relative",
-                                       width: "100%",
-                                    }}
-                                 >
-                                    <input
-                                       style={{
-                                          backgroundColor:
-                                             siteSettings?.data
-                                                ?.footer_background_color ||
-                                             "#000",
-                                          color:
-                                             siteSettings?.data
-                                                ?.footer_text_color ||
-                                             "#fff",
-                                          "&::placeholder": {
-                                             color:
-                                                siteSettings?.data
-                                                   ?.footer_text_color ||
-                                                "#fff",
-                                          },
-                                       }}
-                                       type="email"
-                                       placeholder="Enter your email..."
-                                       className="w-full py-[14px] px-[20px] text-[#000]  border-[#fff] border-[1px] rounded-[50px] focus:outline-none focus:ring-2"
-                                       required
-                                    />
-                                    <ArrowOutwardIcon
-                                       className="text-[#fff] rounded-[50%] p-[8px] text-[40px] absolute right-[5px] z-50"
-                                       style={{
-                                          color: "#000 !important",
-                                          border: "1px solid #000",
-                                          backgroundColor: "#000",
-                                          top: "50%",
-                                          transform:
-                                             "translateY(-50%)",
-                                          zIndex: "10",
-                                          fontSize: "45px",
-                                          cursor: "pointer",
-                                       }}
-                                    />
-                                 </div>
-                              </form>
                            </div>
                         </Grid>
                      </Grid>

@@ -1,5 +1,6 @@
 import Protected from "../components/common/protected";
 import Cart from "../components/pages/protectedPages/cart/Cart";
+import RentNow from "../components/pages/protectedPages/rentNow/RentNow";
 import Wishlist from "../components/pages/protectedPages/wishlist/Wishlist";
 
 const ProtectedRoutes = [
@@ -8,6 +9,14 @@ const ProtectedRoutes = [
       component: (
          <Protected>
             <Cart />
+         </Protected>
+      ),
+   },
+   {
+      path: "/rent-now",
+      component: (
+         <Protected>
+            <RentNow />
          </Protected>
       ),
    },

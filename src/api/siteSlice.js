@@ -13,6 +13,7 @@ export const siteApi = mainApi.injectEndpoints({
       "Order",
       "ShippingDetails",
       "Orders",
+      "PaymentOptions",
       // -------------------------
       "influencer-categories",
       "contact",
@@ -216,6 +217,22 @@ export const siteApi = mainApi.injectEndpoints({
          invalidatesTags: (result, error) =>
             error ? [] : ["UserName"],
       }),
+      postCartQuantityUpdate: builder.mutation({
+         query: ({ data, id }) => ({
+            url: `/api/carts/quantity-update/${id}`,
+            method: "POST",
+            body: data,
+         }),
+         invalidatesTags: (result, error) =>
+            error ? [] : ["CartsUpdate"],
+      }),
+      getPaymentOptions: builder.query({
+         query: (params) => ({
+            url: `/api/payment-options`,
+            params,
+         }),
+         providesTags: ["PaymentOptions"],
+      }),
       // ---------------------------------------------
    }),
 });
@@ -245,5 +262,8 @@ export const {
    usePostProfileImageUpdateMutation,
    usePostUserPasswordUpdateMutation,
    usePostUserNameUpdateMutation,
+   usePostCartQuantityUpdateMutation,
+   useGetPaymentOptionsQuery,
+
    // -------------------
 } = siteApi;

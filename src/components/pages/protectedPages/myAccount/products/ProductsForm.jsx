@@ -70,6 +70,7 @@ const ProductsForm = ({ row, handleClose, uuid, inputValue }) => {
 
       const formData = new FormData();
 
+      data.allow_negative_stock = data.allow_negative_stock ? 1 : 0;
       // Remove rental-related fields if allowRental is false
       if (data?.allow_rental === false) {
          delete data.rental_price;
@@ -137,7 +138,8 @@ const ProductsForm = ({ row, handleClose, uuid, inputValue }) => {
             unit_price: row?.unit_price || "",
             stock_quantity: row?.stock_quantity || "",
             sku: row?.sku || "",
-
+            allow_negative_stock:
+               row?.allow_negative_stock === 1 ? true : false || "",
             product_image: row?.product_image || "",
             status: row?.status || "",
             rental_price: row?.rental_price,
@@ -353,6 +355,14 @@ const ProductsForm = ({ row, handleClose, uuid, inputValue }) => {
                               )}
                         </Grid>
                      </Box>
+                  </Grid>
+                  <Grid item xs={12}>
+                     <CustomSwitch
+                        control={control}
+                        errors={errors}
+                        name={"allow_negative_stock"}
+                        label={"Allow Negative Stock"}
+                     />
                   </Grid>
                   <Grid item xs={12}>
                      <CustomSwitch

@@ -153,6 +153,14 @@ const RouteList = () => {
                      </Protected>
                   }
                />
+               {/* <Route
+                  path="rent-now"
+                  element={
+                     <Protected>
+                        <RentNow />
+                     </Protected>
+                  }
+               /> */}
                <Route
                   path="shipping-details"
                   element={

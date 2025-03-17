@@ -232,6 +232,15 @@ const CommonProductPage = () => {
       wishlistRefetch,
       productSingleRefetch,
    ]);
+
+   const handleRentNow = () => {
+      navigate("/rent-now", {
+         state: {
+            product: productSingleData?.data,
+            quantity,
+         },
+      });
+   };
    return (
       <>
          <ScrollToTop />
@@ -558,20 +567,18 @@ const CommonProductPage = () => {
                                              )}{" "}
                                              Add to Cart
                                           </button>
-                                          <button
-                                             disabled={isCartsLoading}
-                                             // onClick={handleAddToCart}
-                                             className={`flex justify-center items-center gap-[10px] border-[1px] bg-[#5FA5FC] border-[#5FA5FC] hover:bg-[#ffffff] text-[#ffffff] hover:text-[#5FA5FC] duration-300 py-[12px] md:py-[10px] px-[6px] md:px-[40px] rounded-[4px] w-[100%] md:w-fit text-[14px] md:text-[16px] font-[500] ${
-                                                isWishlistLoading
-                                                   ? "cursor-not-allowed opacity-60"
-                                                   : ""
-                                             }`}
-                                          >
-                                             {isCartsLoading && (
-                                                <CustomSpinLoader />
-                                             )}{" "}
-                                             Buy Now
-                                          </button>
+                                          {productSingleData?.data
+                                             ?.rental_product
+                                             ?.length !== 0 && (
+                                             <button
+                                                onClick={
+                                                   handleRentNow
+                                                }
+                                                className={`flex justify-center items-center gap-[10px] border-[1px] bg-[#5FA5FC] border-[#5FA5FC] hover:bg-[#ffffff] text-[#ffffff] hover:text-[#5FA5FC] duration-300 py-[12px] md:py-[10px] px-[6px] md:px-[40px] rounded-[4px] w-[100%] md:w-fit text-[14px] md:text-[16px] font-[500] `}
+                                             >
+                                                Rent Now
+                                             </button>
+                                          )}
                                        </>
                                     ) : (
                                        <button
