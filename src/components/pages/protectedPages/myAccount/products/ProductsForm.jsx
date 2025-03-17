@@ -151,6 +151,16 @@ const ProductsForm = ({ row, handleClose, uuid, inputValue }) => {
       }
    }, [reset, row]);
 
+   useEffect(() => {
+      if (row && row?.rental_product?.length) {
+         const rentalProduct = row.rental_product[0]; // Get the first rental product
+         setValue("rental_price", rentalProduct.rental_price);
+         setValue("rental_duration", rentalProduct.rental_duration);
+         setValue("rental_type", rentalProduct.rental_type);
+         setValue("allow_rental", true); // Enable the rental switch
+      }
+   }, [row, setValue]);
+
    const { data: categoryData, isFetching: categoryFetching } =
       useGetCategoryQuery();
 
