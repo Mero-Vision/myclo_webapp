@@ -234,12 +234,16 @@ const CommonProductPage = () => {
    ]);
 
    const handleRentNow = () => {
-      navigate("/rent-now", {
-         state: {
-            product: productSingleData?.data,
-            quantity,
-         },
-      });
+      if (isLoggedIn()) {
+         navigate("/rent-now", {
+            state: {
+               product: productSingleData?.data,
+               quantity,
+            },
+         });
+      } else {
+         setLoginModal(true);
+      }
    };
    return (
       <>
