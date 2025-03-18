@@ -734,7 +734,10 @@ const SwapModal = ({ singleProduct, handleClose }) => {
                   {productsData?.data?.map((item, index) => (
                      <Grid
                         item
-                        xs={4}
+                        xs={12}
+                        sm={12}
+                        md={6}
+                        lg={4}
                         key={index}
                         className="py-[6px] px-[8px]"
                      >
