@@ -181,11 +181,18 @@ const CommonProductCard = ({ data, showCards }) => {
                         className="product-image product-image1"
                         src={data?.product_images?.[0]?.product_image}
                      />
-                     {data?.product_images?.[1]?.product_image && (
+                     {data?.product_images?.[1]?.product_image ? (
                         <img
                            className="product-image product-image2 absolute top-0 left-0 opacity-0 scale-110 transition-all duration-[700ms] ease-in-out lg:group-hover:opacity-100 lg:group-hover:scale-100"
                            src={
                               data?.product_images?.[1]?.product_image
+                           }
+                        />
+                     ) : (
+                        <img
+                           className="product-image product-image2 absolute top-0 left-0 opacity-0 scale-110 transition-all duration-[700ms] ease-in-out lg:group-hover:opacity-100 lg:group-hover:scale-100"
+                           src={
+                              data?.product_images?.[0]?.product_image
                            }
                         />
                      )}
