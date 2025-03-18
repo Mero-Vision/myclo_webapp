@@ -4,9 +4,17 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Add, Remove } from "@mui/icons-material";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
-import { Divider, Grid, Tooltip, useMediaQuery } from "@mui/material";
+import {
+   Box,
+   Divider,
+   Grid,
+   LinearProgress,
+   Tooltip,
+   useMediaQuery,
+} from "@mui/material";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
+import { useGetMyProductsQuery } from "../../../api/productsApi";
 import {
    useDeleteWishlistMutation,
    useGetCartsQuery,
@@ -14,6 +22,7 @@ import {
    useGetProductSingleQuery,
    useGetWishlistQuery,
    usePostCartsMutation,
+   usePostRequestSwapMutation,
    usePostWishlistMutation,
 } from "../../../api/siteSlice";
 import {
@@ -94,6 +103,7 @@ const CommonProductPage = () => {
    const navigate = useNavigate();
    const [quantity, setQuantity] = useState(1);
    const [loginModal, setLoginModal] = useState(false);
+   const [swapModal, setSwapModal] = useState(false);
    const [img, setImg] = useState();
    const [selectedVarient, setSelectedVarient] = useState(null);
 
@@ -559,6 +569,18 @@ const CommonProductPage = () => {
                                        <>
                                           <button
                                              disabled={isCartsLoading}
+                                             onClick={() =>
+                                                setSwapModal(true)
+                                             }
+                                             className={`flex justify-center items-center gap-[10px] border-[1px] bg-[#5FA5FC] border-[#5FA5FC] hover:bg-[#ffffff] text-[#ffffff] hover:text-[#5FA5FC] duration-300 py-[12px] md:py-[10px] px-[6px] md:px-[40px] rounded-[4px] w-[100%] md:w-fit text-[14px] md:text-[16px] font-[500] `}
+                                          >
+                                             {isCartsLoading && (
+                                                <CustomSpinLoader />
+                                             )}{" "}
+                                             Swap
+                                          </button>
+                                          <button
+                                             disabled={isCartsLoading}
                                              onClick={handleAddToCart}
                                              className={`flex justify-center items-center gap-[10px] border-[1px] bg-[#ffffff] border-[#5FA5FC] hover:bg-[#5FA5FC] text-[#5FA5FC] hover:text-[#ffffff] duration-300 py-[12px] md:py-[10px] px-[6px] md:px-[40px] rounded-[4px] w-[100%] md:w-fit text-[14px] md:text-[16px] font-[500] ${
                                                 isCartsLoading
@@ -643,12 +665,139 @@ const CommonProductPage = () => {
                         handleClose={() => setLoginModal(false)}
                      />
                   </CustomModal>
+                  <CustomModal
+                     noPadding
+                     open={swapModal}
+                     width={isMobile ? "90%" : "1000px"} // Adjust width based on screen size
+                     handleClose={() => setSwapModal(false)}
+                     // height={"84vh"}
+                  >
+                     <SwapModal
+                        handleClose={() => setSwapModal(false)}
+                        singleProduct={productSingleData?.data}
+                     />
+                  </CustomModal>
                </>
             )}
          </div>
          <SingleCategoryComponent
             singleProductData={productSingleData?.data}
          />
+      </>
+   );
+};
+const SwapModal = ({ singleProduct, handleClose }) => {
+   const [selectedProduct, setSelectedProduct] = useState("");
+   const [error, setError] = useState(""); // State to handle error message
+   const { data: productsData, isFetching } = useGetMyProductsQuery();
+   const [
+      postRequestSwap,
+      { isLoading: isLoadingSwap, isSuccess, error: postError },
+   ] = usePostRequestSwapMutation();
+
+   const handleSwap = () => {
+      if (!selectedProduct) {
+         setError("Please select a product to swap."); // Set error message if no product is selected
+         return;
+      }
+
+      const payload = {
+         requester_product_id: selectedProduct,
+         owner_product_id: singleProduct?.id,
+      };
+      postRequestSwap(payload);
+   };
+
+   useEffect(() => {
+      if (isSuccess) {
+         handleClose();
+      }
+   }, [isSuccess, handleClose]);
+
+   const handleCloseModal = () => {
+      handleClose();
+   };
+
+   return (
+      <>
+         {isFetching ? (
+            <Box className="py-[40px] px-[30px] bg-[#fff]">
+               <LinearProgress />
+            </Box>
+         ) : (
+            <Box className="py-[40px] px-[30px]">
+               <Box className="text-[22px] font-[500] mb-[20px]">
+                  Swap Products
+               </Box>
+
+               <Grid container spacing={0} className="mb-[20px]">
+                  {productsData?.data?.map((item, index) => (
+                     <Grid
+                        item
+                        xs={4}
+                        key={index}
+                        className="py-[6px] px-[8px]"
+                     >
+                        <Box
+                           onClick={() => {
+                              setSelectedProduct(item?.id);
+                              setError(""); // Clear error when a product is selected
+                           }}
+                           className={`${
+                              selectedProduct === item?.id
+                                 ? "border-[2px] border-[#5FA5FC]"
+                                 : "border-[2px] border-[#eee]"
+                           } flex flex-row bg-[#fcfcfc] py-[10px] px-[8px] rounded-[4px] cursor-pointer`}
+                        >
+                           <Box className="min-w-[60px]">
+                              <img
+                                 src={
+                                    item?.product_images?.[0]
+                                       ?.product_image
+                                 }
+                                 alt="image"
+                                 className="w-[50px] h-[55px] rounded-[3px]"
+                              />
+                           </Box>
+                           <Box className="flex justify-between flex-col">
+                              <Box className="text-[16px] font-[500] text-[#343434]">
+                                 {item?.name}
+                              </Box>
+                              <Box className="text-[16px] font-[600] text-[#5FA5FC]">
+                                 Rs.{" "}
+                                 {returnNepaliNumberWithCommas(
+                                    item?.selling_price
+                                 )}
+                              </Box>
+                           </Box>
+                        </Box>
+                     </Grid>
+                  ))}
+               </Grid>
+               {error && ( // Display error message if present
+                  <Box className="text-red-400 mb-[20px] text-[14px] flex justify-end">
+                     {error}
+                  </Box>
+               )}
+               <div className=" flex flex-row justify-end gap-2">
+                  <button
+                     onClick={handleCloseModal}
+                     className={`flex justify-center items-center gap-[10px] border-[1px] bg-[#5FA5FC] border-[#5FA5FC] hover:bg-[#ffffff] text-[#ffffff] hover:text-[#5FA5FC] duration-300 py-[12px] md:py-[10px] px-[6px] md:px-[40px] rounded-[4px] w-[100%] md:w-fit text-[14px] md:text-[16px] font-[500] `}
+                  >
+                     Close
+                  </button>
+                  <button
+                     onClick={handleSwap}
+                     className={`flex justify-center items-center gap-[10px] border-[1px] bg-[#ffffff] border-[#5FA5FC] hover:bg-[#5FA5FC] text-[#5FA5FC] hover:text-[#ffffff] duration-300 py-[12px] md:py-[10px] px-[6px] md:px-[40px] rounded-[4px] w-[100%] md:w-fit text-[14px] md:text-[16px] font-[500]
+                 ${isLoadingSwap ? "cursor-not-allowed" : ""}
+               `}
+                  >
+                     {isLoadingSwap && <CustomSpinLoader />}
+                     Swap
+                  </button>
+               </div>
+            </Box>
+         )}
       </>
    );
 };

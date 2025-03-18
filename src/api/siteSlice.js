@@ -14,6 +14,7 @@ export const siteApi = mainApi.injectEndpoints({
       "ShippingDetails",
       "Orders",
       "PaymentOptions",
+      "Swaps",
       // -------------------------
       "influencer-categories",
       "contact",
@@ -233,6 +234,45 @@ export const siteApi = mainApi.injectEndpoints({
          }),
          providesTags: ["PaymentOptions"],
       }),
+
+      // swaps
+
+      getRequesterSwaps: builder.query({
+         query: (params) => ({
+            url: `/swaps/requester`,
+            params,
+         }),
+         providesTags: ["Swaps"],
+      }),
+      getOwnerSwaps: builder.query({
+         query: (params) => ({
+            url: `/swaps/owner`,
+            params,
+         }),
+         providesTags: ["Swaps"],
+      }),
+      postRequestSwap: builder.mutation({
+         query: (data) => ({
+            url: `/swap/request`,
+            method: "POST",
+            body: data,
+         }),
+         invalidatesTags: (result, error) => (error ? [] : ["Swaps"]),
+      }),
+      postAcceptSwap: builder.mutation({
+         query: (id) => ({
+            url: `/swap/accept/${id}`,
+            method: "POST",
+         }),
+         invalidatesTags: (result, error) => (error ? [] : ["Swaps"]),
+      }),
+      postRejectSwap: builder.mutation({
+         query: (id) => ({
+            url: `/swap/reject/${id}`,
+            method: "POST",
+         }),
+         invalidatesTags: (result, error) => (error ? [] : ["Swaps"]),
+      }),
       // ---------------------------------------------
    }),
 });
@@ -264,6 +304,11 @@ export const {
    usePostUserNameUpdateMutation,
    usePostCartQuantityUpdateMutation,
    useGetPaymentOptionsQuery,
+   useGetRequesterSwapsQuery,
+   useGetOwnerSwapsQuery,
+   usePostRequestSwapMutation,
+   usePostAcceptSwapMutation,
+   usePostRejectSwapMutation,
 
    // -------------------
 } = siteApi;
