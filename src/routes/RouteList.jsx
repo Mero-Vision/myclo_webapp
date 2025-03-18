@@ -11,6 +11,7 @@ import MyOrders from "../components/pages/protectedPages/myAccount/myOrders/MyOr
 import MyProfile from "../components/pages/protectedPages/myAccount/myProfile/MyProfile";
 import Products from "../components/pages/protectedPages/myAccount/products/Products";
 import ShippingDetail from "../components/pages/protectedPages/myAccount/shippingDetail/ShippingDetail";
+import SwappedProducts from "../components/pages/protectedPages/myAccount/swappedProducts/SwappedProducts";
 import MainSiteLayout from "../layout/MainSiteLayout";
 import RedirectLayout from "../layout/RedirectLayout";
 import ProtectedRoutes from "./ProtectedRoutes";
@@ -150,6 +151,14 @@ const RouteList = () => {
                   element={
                      <Protected>
                         <Products />{" "}
+                     </Protected>
+                  }
+               />
+               <Route
+                  path="swapped-products"
+                  element={
+                     <Protected>
+                        <SwappedProducts />{" "}
                      </Protected>
                   }
                />

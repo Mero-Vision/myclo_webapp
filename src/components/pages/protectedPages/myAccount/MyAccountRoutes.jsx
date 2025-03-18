@@ -1,4 +1,5 @@
 import AccountBoxOutlinedIcon from "@mui/icons-material/AccountBoxOutlined";
+import CategoryOutlinedIcon from "@mui/icons-material/CategoryOutlined";
 import DashboardOutlinedIcon from "@mui/icons-material/DashboardOutlined";
 import ExitToAppOutlinedIcon from "@mui/icons-material/ExitToAppOutlined";
 import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined";
@@ -46,6 +47,11 @@ const settingsArray = [
       label: "My Products",
       url: "/my-account/my-products",
       icon: <WidgetsOutlinedIcon />,
+   },
+   {
+      label: "Swapped Products",
+      url: "/my-account/swapped-products",
+      icon: <CategoryOutlinedIcon />,
    },
    {
       label: "Shipping Details",
