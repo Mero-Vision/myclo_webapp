@@ -179,7 +179,7 @@ const Products = () => {
          headerName: "Status",
       },
       {
-         flex: 0.6,
+         flex: 0.8,
          field: "created_at",
          headerName: "Created At",
          renderCell: (params) => {
@@ -202,7 +202,7 @@ const Products = () => {
       },
 
       {
-         flex: 0.4,
+         flex: 0.6,
          field: "action",
          headerName: "Actions",
          //  renderCell: ActionComponent,
