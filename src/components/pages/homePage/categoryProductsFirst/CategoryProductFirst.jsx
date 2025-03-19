@@ -122,57 +122,65 @@ const CategoryProductsFirst = ({ item }) => {
    };
 
    return (
-      <div className="containerWrap">
-         <div className="containerBody">
-            <div className="commonContainerBodySec">
-               <div className="flex flex-col">
-                  <div className="flex flex-col lg:flex-row lg:justify-between items-center mb-[44px]">
-                     <div className="titleTwo mb-[8px] lg:mb-[0px] whitespace-nowrap">
-                        {item?.name}
-                     </div>
-                     <div
-                        onClick={() =>
-                           navigate(`/categories/${item?.slug}`)
-                        }
-                        className="cursor-pointer text-[14px] md:text-[16px] font-[400] text-[#181818] border-b-[1px] border-[#181818] hover:border-b-[2px] hover:mb-[-1px] transition duration-300 ease-in-out"
-                     >
-                        See All Products
+      <>
+         {productSingleData?.data?.products?.length !== 0 ? (
+            <div className="containerWrap">
+               <div className="containerBody">
+                  <div className="commonContainerBodySec">
+                     <div className="flex flex-col">
+                        <div className="flex flex-col lg:flex-row lg:justify-between items-center mb-[44px]">
+                           <div className="titleTwo mb-[8px] lg:mb-[0px] whitespace-nowrap">
+                              {item?.name}
+                           </div>
+                           <div
+                              onClick={() =>
+                                 navigate(`/categories/${item?.slug}`)
+                              }
+                              className="cursor-pointer text-[14px] md:text-[16px] font-[400] text-[#181818] border-b-[1px] border-[#181818] hover:border-b-[2px] hover:mb-[-1px] transition duration-300 ease-in-out"
+                           >
+                              See All Products
+                           </div>
+                        </div>
+                        {shouldUseSlider() ? (
+                           <Slider
+                              ref={sliderRef}
+                              {...sliderSettings}
+                              className="w-full dealsPage"
+                           >
+                              {productSingleData?.data?.products?.map(
+                                 (item, index) => (
+                                    <CommonProductCard
+                                       data={item}
+                                       key={index}
+                                    />
+                                 )
+                              )}
+                           </Slider>
+                        ) : (
+                           <Grid container spacing={0}>
+                              {productSingleData?.data?.products?.map(
+                                 (item, index) => (
+                                    <Grid
+                                       item
+                                       {...getGridLayout()}
+                                       key={index}
+                                    >
+                                       <CommonProductCard
+                                          data={item}
+                                       />
+                                    </Grid>
+                                 )
+                              )}
+                           </Grid>
+                        )}
                      </div>
                   </div>
-                  {shouldUseSlider() ? (
-                     <Slider
-                        ref={sliderRef}
-                        {...sliderSettings}
-                        className="w-full dealsPage"
-                     >
-                        {productSingleData?.data?.products?.map(
-                           (item, index) => (
-                              <CommonProductCard
-                                 data={item}
-                                 key={index}
-                              />
-                           )
-                        )}
-                     </Slider>
-                  ) : (
-                     <Grid container spacing={0}>
-                        {productSingleData?.data?.products?.map(
-                           (item, index) => (
-                              <Grid
-                                 item
-                                 {...getGridLayout()}
-                                 key={index}
-                              >
-                                 <CommonProductCard data={item} />
-                              </Grid>
-                           )
-                        )}
-                     </Grid>
-                  )}
                </div>
             </div>
-         </div>
-      </div>
+         ) : (
+            ""
+         )}
+      </>
    );
 };
 

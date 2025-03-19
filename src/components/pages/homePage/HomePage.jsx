@@ -8,10 +8,9 @@ import CategoryProductsFirst from "./categoryProductsFirst/CategoryProductFirst"
 import Deals from "./deals/Deals";
 import FeaturedProducts from "./featuredProducts/FeaturedProducts";
 import Hero from "./hero/Hero";
-import InfoCards from "./infoCards/InfoCards";
 import MarqueeComp from "./marquee/Marquee";
 import Policies from "./policies/Policies";
-import SaleBanner from "./saleBanner/SaleBanner";
+import RecommendedProducts from "./RecommendedProducts/RecommendedProducts";
 
 const HomePage = () => {
    const {
@@ -25,32 +24,41 @@ const HomePage = () => {
          <Hero />
          <Category />
          <Deals />
+         <RecommendedProducts />
          <FeaturedProducts />
-         <InfoCards />
+         {/* <InfoCards /> */}
          {/* ---------------------- */}
          {isProductSingleDataLoading ? (
             <LazyLoadPage />
          ) : (
             <>
-               {categorySingleData?.data
-                  ?.slice(0, 2)
-                  ?.map((item, index) => (
-                     <CategoryProductsFirst item={item} key={index} />
-                  ))}
+               {categorySingleData &&
+                  categorySingleData?.data
+                     ?.slice(0, 2)
+                     ?.map((item, index) => (
+                        <CategoryProductsFirst
+                           item={item}
+                           key={index}
+                        />
+                     ))}
             </>
          )}
          {/* ---------------------- */}
          {/* <TodaysPick /> */}
-         <SaleBanner />
+         {/* <SaleBanner /> */}
          {isProductSingleDataLoading ? (
             <LazyLoadPage />
          ) : (
             <>
-               {categorySingleData?.data
-                  ?.slice(2)
-                  ?.map((item, index) => (
-                     <CategoryProductsFirst item={item} key={index} />
-                  ))}
+               {categorySingleData &&
+                  categorySingleData?.data
+                     ?.slice(2)
+                     ?.map((item, index) => (
+                        <CategoryProductsFirst
+                           item={item}
+                           key={index}
+                        />
+                     ))}
             </>
          )}
          {/* <MostViewedProducts /> */}

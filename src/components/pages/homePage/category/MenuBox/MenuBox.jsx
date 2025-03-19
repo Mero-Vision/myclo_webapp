@@ -57,79 +57,93 @@ const MenuBox = () => {
       ],
    };
    return (
-      <Box className="sliderBoxContainer">
-         <Box className="sliderBox">
-            {category?.data?.length > 4 && (
-               <div className=" ">
-                  {/* <div className="arrowsMenuContainerCatParent"> */}
-                  <div
-                     onClick={() => sliderRef.current.slickPrev()}
-                     className="arrowMenuButtonBoxCatL"
-                  >
-                     <KeyboardArrowLeftRoundedIcon className="arrowMenuButton" />
-                  </div>
-                  <div
-                     onClick={() => sliderRef.current.slickNext()}
-                     className="arrowMenuButtonBoxCatR"
-                  >
-                     <KeyboardArrowRightRoundedIcon className="arrowMenuButton" />
-                  </div>
-                  {/* </div> */}
-               </div>
-            )}
-            <div className="menuPageBoxMenuWrap">
-               <Box className="menuPageBoxMenuItemsBox">
-                  <Slider
-                     ref={sliderRef}
-                     {...sliderSettings}
-                     className="menuPageBoxMenuItems "
-                  >
-                     {category?.data?.map((item) => (
+      <>
+         {category?.data?.length !== 0 ? (
+            <Box className="sliderBoxContainer">
+               <Box className="sliderBox">
+                  {category?.data?.length > 4 && (
+                     <div className=" ">
+                        {/* <div className="arrowsMenuContainerCatParent"> */}
                         <div
                            onClick={() =>
-                              navigate(`/categories/${item?.slug}`)
+                              sliderRef.current.slickPrev()
                            }
-                           key={item.id}
-                           className="menuItem"
-                           style={{
-                              display: "flex !important",
-                              justifyContent: " center !important",
-                              width: "100% !important",
-                              alignItems: "center !important",
-                           }}
+                           className="arrowMenuButtonBoxCatL"
                         >
-                           <div
-                              style={{
-                                 display: "flex",
-                                 justifyContent: "center",
-                                 width: "100%",
-                              }}
-                           >
-                              <img
-                                 src={item?.category_image}
-                                 alt="img"
-                                 className="rounded-[8px]"
-                                 style={{
-                                    aspectRatio: "1 / 1",
-                                    // height: "230px",
-                                    // width: "230px",
-                                    objectFit: "cover",
-                                    textAlign: "center !important",
-                                 }}
-                              />
-                           </div>
-                           <div className="menuItemText">
-                              <div className="titleFour mt-[16px] hover:text-[#E43131] transition duration-300 ease-in-out">
-                                 {item?.name}
-                              </div>
-                           </div>
+                           <KeyboardArrowLeftRoundedIcon className="arrowMenuButton" />
                         </div>
-                     ))}
-                  </Slider>
+                        <div
+                           onClick={() =>
+                              sliderRef.current.slickNext()
+                           }
+                           className="arrowMenuButtonBoxCatR"
+                        >
+                           <KeyboardArrowRightRoundedIcon className="arrowMenuButton" />
+                        </div>
+                        {/* </div> */}
+                     </div>
+                  )}
+                  <div className="menuPageBoxMenuWrap">
+                     <Box className="menuPageBoxMenuItemsBox">
+                        <Slider
+                           ref={sliderRef}
+                           {...sliderSettings}
+                           className="menuPageBoxMenuItems "
+                        >
+                           {category?.data?.map((item) => (
+                              <div
+                                 onClick={() =>
+                                    navigate(
+                                       `/categories/${item?.slug}`
+                                    )
+                                 }
+                                 key={item.id}
+                                 className="menuItem"
+                                 style={{
+                                    display: "flex !important",
+                                    justifyContent:
+                                       " center !important",
+                                    width: "100% !important",
+                                    alignItems: "center !important",
+                                 }}
+                              >
+                                 <div
+                                    style={{
+                                       display: "flex",
+                                       justifyContent: "center",
+                                       width: "100%",
+                                    }}
+                                 >
+                                    <img
+                                       src={item?.category_image}
+                                       alt="img"
+                                       className="rounded-[8px]"
+                                       style={{
+                                          aspectRatio: "1 / 1",
+                                          // height: "230px",
+                                          // width: "230px",
+                                          objectFit: "cover",
+                                          textAlign:
+                                             "center !important",
+                                       }}
+                                    />
+                                 </div>
+                                 <div className="menuItemText">
+                                    <div className="titleFour mt-[16px] hover:text-[#E43131] transition duration-300 ease-in-out">
+                                       {item?.name}
+                                    </div>
+                                 </div>
+                              </div>
+                           ))}
+                        </Slider>
+                     </Box>
+                  </div>
                </Box>
-            </div>
-         </Box>
-      </Box>
+            </Box>
+         ) : (
+            ""
+         )}
+      </>
    );
 };
 

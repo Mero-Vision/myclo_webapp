@@ -1,5 +1,7 @@
+import StarOutlinedIcon from "@mui/icons-material/StarOutlined";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+
 // -----------------
 import { Add, Remove } from "@mui/icons-material";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
@@ -58,17 +60,13 @@ const CommonProductPage = () => {
       isLoading: isProductSingleDataLoading,
       refetch: productSingleRefetch,
    } = useGetProductSingleQuery(slug);
-   const {
-      refetch: cartRefetch, // Use this to manually refetch the cart data
-   } = useGetCartsQuery(
+   const { refetch: cartRefetch } = useGetCartsQuery(
       {},
       {
          skip: !isLoggedIn(),
       }
    );
-   const {
-      refetch: wishlistRefetch, // Use this to manually refetch the cart data
-   } = useGetWishlistQuery(
+   const { refetch: wishlistRefetch } = useGetWishlistQuery(
       {},
       {
          skip: !isLoggedIn(),
@@ -155,7 +153,7 @@ const CommonProductPage = () => {
 
    const tabData = [
       { label: "Description", value: "description" },
-      // { label: "Ratings and Reviews", value: "ratings_and_reviews" },
+      { label: "Ratings and Reviews", value: "ratings_and_reviews" },
       // { label: "FAQs", value: "faqs" },
    ];
 
@@ -170,7 +168,7 @@ const CommonProductPage = () => {
                />
             );
          case "ratings_and_reviews":
-            return <Reviews />;
+            return <Reviews product={productSingleData?.data} />;
          case "faqs":
             return <FAQS />;
          default:
@@ -400,52 +398,22 @@ const CommonProductPage = () => {
                                        borderColor: "#eee",
                                     }}
                                  />
-                                 {productSingleData?.data
-                                    ?.product_varient?.length !==
-                                    0 && (
-                                    <div className="mb-10 flex flex-row items-center">
-                                       <div className="mb-1 mr-[20px] text-[16px] text-[#979797] capitalize">
-                                          Varients:
-                                       </div>
-                                       <div>
-                                          <div className="text-[14px] font-[400] text-[#343434]">
-                                             {selectedVarient?.color}
-                                          </div>
-                                          <div className="flex gap-[6px] items-center mt-[3px]">
-                                             {productSingleData?.data?.product_varient?.map(
-                                                (item, index) => (
-                                                   <img
-                                                      key={index}
-                                                      className={`w-[40px] h-[40px] object-cover border-2 cursor-pointer ${
-                                                         selectedVarient?.id ===
-                                                         item?.id
-                                                            ? "border-red-500"
-                                                            : "border-gray-300"
-                                                      }`}
-                                                      src={
-                                                         item
-                                                            ?.product_varient_images?.[0]
-                                                            ?.product_image
-                                                      }
-                                                      alt={`Variant ${
-                                                         index + 1
-                                                      }`}
-                                                      onClick={() =>
-                                                         setSelectedVarient(
-                                                            selectedVarient?.id ===
-                                                               item?.id
-                                                               ? null
-                                                               : item
-                                                         )
-                                                      }
-                                                   />
-                                                )
-                                             )}
-                                          </div>
-                                       </div>
+                                 <div className="mb-8 flex flex-row items-center">
+                                    <div className="mb-1 mr-[33px] text-[16px] text-[#979797] capitalize">
+                                       Rating:
                                     </div>
-                                 )}
-
+                                    <div className="flex flex-row items-center gap-[10px]">
+                                       <div className="text-[38px] font-[400]">
+                                          {Number(
+                                             productSingleData?.data
+                                                ?.average_rating
+                                          )?.toFixed(1)}
+                                       </div>
+                                       <StarOutlinedIcon
+                                          sx={{ color: " gold" }}
+                                       />
+                                    </div>
+                                 </div>
                                  <div className="mb-10 flex flex-row items-center">
                                     <div className="mb-1 mr-[20px] text-[16px] text-[#979797] capitalize">
                                        Quantity:
@@ -705,7 +673,14 @@ const SwapModal = ({ singleProduct, handleClose }) => {
          requester_product_id: selectedProduct,
          owner_product_id: singleProduct?.id,
       };
-      postRequestSwap(payload);
+      postRequestSwap(payload)
+         .unwrap()
+         .then(() => {
+            customToaster({
+               message: "Product swapped successfully.",
+               type: "success",
+            });
+         });
    };
 
    useEffect(() => {
@@ -729,76 +704,87 @@ const SwapModal = ({ singleProduct, handleClose }) => {
                <Box className="text-[22px] font-[500] mb-[20px]">
                   Swap Products
                </Box>
-
-               <Grid container spacing={0} className="mb-[20px]">
-                  {productsData?.data?.map((item, index) => (
+               {productsData?.data?.length !== 0 ? (
+                  <>
                      <Grid
-                        item
-                        xs={12}
-                        sm={12}
-                        md={6}
-                        lg={4}
-                        key={index}
-                        className="py-[6px] px-[8px]"
+                        container
+                        spacing={0}
+                        className="mb-[20px]"
                      >
-                        <Box
-                           onClick={() => {
-                              setSelectedProduct(item?.id);
-                              setError(""); // Clear error when a product is selected
-                           }}
-                           className={`${
-                              selectedProduct === item?.id
-                                 ? "border-[2px] border-[#5FA5FC]"
-                                 : "border-[2px] border-[#eee]"
-                           } flex flex-row bg-[#fcfcfc] py-[10px] px-[8px] rounded-[4px] cursor-pointer`}
-                        >
-                           <Box className="min-w-[60px]">
-                              <img
-                                 src={
-                                    item?.product_images?.[0]
-                                       ?.product_image
-                                 }
-                                 alt="image"
-                                 className="w-[50px] h-[55px] rounded-[3px]"
-                              />
-                           </Box>
-                           <Box className="flex justify-between flex-col">
-                              <Box className="text-[16px] font-[500] text-[#343434]">
-                                 {item?.name}
+                        {productsData?.data?.map((item, index) => (
+                           <Grid
+                              item
+                              xs={12}
+                              sm={12}
+                              md={6}
+                              lg={4}
+                              key={index}
+                              className="py-[6px] px-[8px]"
+                           >
+                              <Box
+                                 onClick={() => {
+                                    setSelectedProduct(item?.id);
+                                    setError(""); // Clear error when a product is selected
+                                 }}
+                                 className={`${
+                                    selectedProduct === item?.id
+                                       ? "border-[2px] border-[#5FA5FC]"
+                                       : "border-[2px] border-[#eee]"
+                                 } flex flex-row bg-[#fcfcfc] py-[10px] px-[8px] rounded-[4px] cursor-pointer`}
+                              >
+                                 <Box className="min-w-[60px]">
+                                    <img
+                                       src={
+                                          item?.product_images?.[0]
+                                             ?.product_image
+                                       }
+                                       alt="image"
+                                       className="w-[50px] h-[55px] rounded-[3px]"
+                                    />
+                                 </Box>
+                                 <Box className="flex justify-between flex-col">
+                                    <Box className="text-[16px] font-[500] text-[#343434]">
+                                       {item?.name}
+                                    </Box>
+                                    <Box className="text-[16px] font-[600] text-[#5FA5FC]">
+                                       Rs.{" "}
+                                       {returnNepaliNumberWithCommas(
+                                          item?.selling_price
+                                       )}
+                                    </Box>
+                                 </Box>
                               </Box>
-                              <Box className="text-[16px] font-[600] text-[#5FA5FC]">
-                                 Rs.{" "}
-                                 {returnNepaliNumberWithCommas(
-                                    item?.selling_price
-                                 )}
-                              </Box>
-                           </Box>
-                        </Box>
+                           </Grid>
+                        ))}
                      </Grid>
-                  ))}
-               </Grid>
-               {error && ( // Display error message if present
-                  <Box className="text-red-400 mb-[20px] text-[14px] flex justify-end">
-                     {error}
-                  </Box>
-               )}
-               <div className=" flex flex-row justify-end gap-2">
-                  <button
-                     onClick={handleCloseModal}
-                     className={`flex justify-center items-center gap-[10px] border-[1px] bg-[#5FA5FC] border-[#5FA5FC] hover:bg-[#ffffff] text-[#ffffff] hover:text-[#5FA5FC] duration-300 py-[12px] md:py-[10px] px-[6px] md:px-[40px] rounded-[4px] w-[100%] md:w-fit text-[14px] md:text-[16px] font-[500] `}
-                  >
-                     Close
-                  </button>
-                  <button
-                     onClick={handleSwap}
-                     className={`flex justify-center items-center gap-[10px] border-[1px] bg-[#ffffff] border-[#5FA5FC] hover:bg-[#5FA5FC] text-[#5FA5FC] hover:text-[#ffffff] duration-300 py-[12px] md:py-[10px] px-[6px] md:px-[40px] rounded-[4px] w-[100%] md:w-fit text-[14px] md:text-[16px] font-[500]
+                     {error && ( // Display error message if present
+                        <Box className="text-red-400 mb-[20px] text-[14px] flex justify-end">
+                           {error}
+                        </Box>
+                     )}
+                     <div className=" flex flex-row justify-end gap-2">
+                        <button
+                           onClick={handleCloseModal}
+                           className={`flex justify-center items-center gap-[10px] border-[1px] bg-[#5FA5FC] border-[#5FA5FC] hover:bg-[#ffffff] text-[#ffffff] hover:text-[#5FA5FC] duration-300 py-[12px] md:py-[10px] px-[6px] md:px-[40px] rounded-[4px] w-[100%] md:w-fit text-[14px] md:text-[16px] font-[500] `}
+                        >
+                           Close
+                        </button>
+                        <button
+                           onClick={handleSwap}
+                           className={`flex justify-center items-center gap-[10px] border-[1px] bg-[#ffffff] border-[#5FA5FC] hover:bg-[#5FA5FC] text-[#5FA5FC] hover:text-[#ffffff] duration-300 py-[12px] md:py-[10px] px-[6px] md:px-[40px] rounded-[4px] w-[100%] md:w-fit text-[14px] md:text-[16px] font-[500]
                  ${isLoadingSwap ? "cursor-not-allowed" : ""}
                `}
-                  >
-                     {isLoadingSwap && <CustomSpinLoader />}
-                     Swap
-                  </button>
-               </div>
+                        >
+                           {isLoadingSwap && <CustomSpinLoader />}
+                           Swap
+                        </button>
+                     </div>
+                  </>
+               ) : (
+                  <Box className="flex justify-center text-[16px] font-[500] text-[#aaa]">
+                     You have no products for swap.
+                  </Box>
+               )}
             </Box>
          )}
       </>

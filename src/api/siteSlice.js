@@ -15,6 +15,8 @@ export const siteApi = mainApi.injectEndpoints({
       "Orders",
       "PaymentOptions",
       "Swaps",
+      "Review",
+      "RecommendedProducts",
       // -------------------------
       "influencer-categories",
       "contact",
@@ -239,21 +241,21 @@ export const siteApi = mainApi.injectEndpoints({
 
       getRequesterSwaps: builder.query({
          query: (params) => ({
-            url: `/swaps/requester`,
+            url: `/api/swaps/requester`,
             params,
          }),
          providesTags: ["Swaps"],
       }),
       getOwnerSwaps: builder.query({
          query: (params) => ({
-            url: `/swaps/owner`,
+            url: `/api/swaps/owner`,
             params,
          }),
          providesTags: ["Swaps"],
       }),
       postRequestSwap: builder.mutation({
          query: (data) => ({
-            url: `/swap/request`,
+            url: `/api/swap/request`,
             method: "POST",
             body: data,
          }),
@@ -261,17 +263,37 @@ export const siteApi = mainApi.injectEndpoints({
       }),
       postAcceptSwap: builder.mutation({
          query: (id) => ({
-            url: `/swap/accept/${id}`,
+            url: `/api/swap/accept/${id}`,
             method: "POST",
          }),
          invalidatesTags: (result, error) => (error ? [] : ["Swaps"]),
       }),
       postRejectSwap: builder.mutation({
          query: (id) => ({
-            url: `/swap/reject/${id}`,
+            url: `/api/swap/reject/${id}`,
             method: "POST",
          }),
          invalidatesTags: (result, error) => (error ? [] : ["Swaps"]),
+      }),
+      // review
+      postReview: builder.mutation({
+         query: (data) => ({
+            url: `/api/product-review`,
+            method: "POST",
+            body: data,
+         }),
+         invalidatesTags: (result, error) =>
+            error ? [] : ["Review"],
+      }),
+
+      //  recommended-products
+
+      getRecommendedProducts: builder.query({
+         query: (params) => ({
+            url: `/api/recommended-products `,
+            params,
+         }),
+         providesTags: ["RecommendedProducts"],
       }),
       // ---------------------------------------------
    }),
@@ -309,6 +331,8 @@ export const {
    usePostRequestSwapMutation,
    usePostAcceptSwapMutation,
    usePostRejectSwapMutation,
+   usePostReviewMutation,
+   useGetRecommendedProductsQuery,
 
    // -------------------
 } = siteApi;
