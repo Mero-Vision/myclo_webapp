@@ -121,13 +121,7 @@ const RentNow = () => {
                   <div className="containerBody">
                      <div className="commonContainerBodySec">
                         <Grid container spacing={0}>
-                           <Grid
-                              item
-                              xs={12}
-                              sm={12}
-                              md={cartData?.data?.length ? 8 : 12}
-                              lg={cartData?.data?.length ? 8 : 12}
-                           >
+                           <Grid item xs={12} sm={12} md={8} lg={8}>
                               <div className="flex flex-col mb-[26px]">
                                  <div className="flex flex-col mb-[20px]">
                                     <div className="text-[18px] font-[500] mb-[10px]">
@@ -274,27 +268,19 @@ const RentNow = () => {
                               </div>
                            </Grid>
 
-                           {cartData?.data?.length !== 0 && (
-                              <Grid
-                                 item
-                                 xs={12}
-                                 sm={12}
-                                 md={4}
-                                 lg={4}
-                              >
-                                 <OrderSummaryCheckout
-                                    getCartMessage={getCartMessage}
-                                    cartData={product || {}}
-                                    localQuantities={localQuantities}
-                                    checkedItems={checkedItems}
-                                    isCheckoutMode={isCheckoutMode}
-                                    onCheckout={handleCheckout}
-                                    cartRefetch={cartRefetch}
-                                    paymentId={paymentId}
-                                    qty={quantity}
-                                 />
-                              </Grid>
-                           )}
+                           <Grid item xs={12} sm={12} md={4} lg={4}>
+                              <OrderSummaryCheckout
+                                 getCartMessage={getCartMessage}
+                                 cartData={product || {}}
+                                 localQuantities={localQuantities}
+                                 checkedItems={checkedItems}
+                                 isCheckoutMode={isCheckoutMode}
+                                 onCheckout={handleCheckout}
+                                 cartRefetch={cartRefetch}
+                                 paymentId={paymentId}
+                                 qty={quantity}
+                              />
+                           </Grid>
                         </Grid>
                      </div>
                   </div>
