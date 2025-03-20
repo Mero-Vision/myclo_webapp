@@ -191,7 +191,7 @@ const Navbar = () => {
                <img
                   src={siteSettings?.data?.logo}
                   alt=""
-                  className="w-[80px]  h-auto cursor-pointer bg-[gray]"
+                  className="w-[80px]  h-auto cursor-pointer "
                   onClick={() => handleNavigation(`/`)}
                />{" "}
                <div
